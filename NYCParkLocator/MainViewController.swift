@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MainViewController: UIViewController, CLLocationManagerDelegate {
+class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     
     @IBOutlet weak var mapView: MKMapView!
@@ -31,13 +31,12 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
+        mapView.delegate = self
         requestLocationPersmissions()
         setupMapView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        loadParks()
-    }
+
     private func loadParks() {
         Park.loadParksFromJSON { parks, error in
             if let error = error {
@@ -55,6 +54,31 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+
+    func parseGeoJSON() -> [MKOverlay] {
+        guard let url = Bundle.main.url(forResource: "parkGeoJson", withExtension: "json") else {
+            fatalError("Undable to get geojson")
+        }
+        var geoJson = [MKGeoJSONObject]()
+        do {
+            let data = try Data(contentsOf: url)
+            geoJson = try MKGeoJSONDecoder().decode(data)
+        } catch {
+            fatalError("Unable to decode geojson")
+        }
+        var overlays = [MKOverlay]()
+        for item in geoJson {
+            if let feature = item as? MKGeoJSONFeature {
+                for geo in feature.geometry {
+                    if let polygon = geo as? MKMultiPolygon {
+                        overlays.append(polygon)
+                    }
+                }
+            }
+        }
+        print("returning: \(overlays.count) overlays")
+        return overlays
+    }
 
     
     private func requestLocationPersmissions() {
@@ -88,8 +112,9 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     private func setupMapView() {
+        
         mapView.showsUserLocation = true
-       
+        mapView.addOverlays(self.parseGeoJSON())
     }
     
     private func showAppSettings() {
@@ -138,6 +163,23 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
             return
         }
         centerMapOnUserLocation(coordinate: userCoordinate)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+
+      if let multiPolygon = overlay as? MKMultiPolygon {
+        let renderer = MKMultiPolygonRenderer(multiPolygon: multiPolygon)
+        let renderingColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        renderer.fillColor = renderingColor.withAlphaComponent(0.5)
+        renderer.strokeColor = renderingColor
+        renderer.lineWidth = 0.5
+        return renderer
+      }
+
+
+
+      return MKOverlayRenderer(overlay: overlay)
+
     }
 }
 

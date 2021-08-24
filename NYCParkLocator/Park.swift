@@ -20,10 +20,7 @@ struct Park: Codable {
         return location + ", " + zipcode
     }
     
-    func test() {
-//        MKMultiPolygon.init(<#T##polygons: [MKPolygon]##[MKPolygon]#>)
-        MKPolygon.init(coordinates: <#T##UnsafePointer<CLLocationCoordinate2D>#>, count: <#T##Int#>)
-    }
+
 //    var coordinate: CLLocationCoordinate2D
 //    
 //    static func getCoordinateFromAddress(address: String, completion: @escaping(CLLocationCoordinate2D?, Error?) -> Void) {

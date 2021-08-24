@@ -18,6 +18,8 @@
 		D55D270E26D019A100CF6960 /* NYCParkLocatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D270D26D019A100CF6960 /* NYCParkLocatorTests.swift */; };
 		D55D271926D019A100CF6960 /* NYCParkLocatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D271826D019A100CF6960 /* NYCParkLocatorUITests.swift */; };
 		D5778C7F26D0216200AA6AB2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5778C7E26D0216200AA6AB2 /* MainViewController.swift */; };
+		D5A0986A26D592D400A590D0 /* parkGeoJson.json in Resources */ = {isa = PBXBuildFile; fileRef = D5A0986926D592D400A590D0 /* parkGeoJson.json */; };
+		D5A0986E26D5A13B00A590D0 /* ParkGeo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A0986D26D5A13B00A590D0 /* ParkGeo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		D55D271826D019A100CF6960 /* NYCParkLocatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYCParkLocatorUITests.swift; sourceTree = "<group>"; };
 		D55D271A26D019A100CF6960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5778C7E26D0216200AA6AB2 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		D5A0986926D592D400A590D0 /* parkGeoJson.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = parkGeoJson.json; sourceTree = "<group>"; };
+		D5A0986D26D5A13B00A590D0 /* ParkGeo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkGeo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 			children = (
 				D55D26F626D019A000CF6960 /* AppDelegate.swift */,
 				D5571D6226D56A3A005833F9 /* Park.swift */,
+				D5A0986D26D5A13B00A590D0 /* ParkGeo.swift */,
 				D5571D6426D582DC005833F9 /* ParkAnnotation.swift */,
 				D5778C7E26D0216200AA6AB2 /* MainViewController.swift */,
 				D5571D5E26D56947005833F9 /* Extensions.swift */,
@@ -114,6 +119,7 @@
 				D55D26FF26D019A100CF6960 /* Assets.xcassets */,
 				D55D270126D019A100CF6960 /* LaunchScreen.storyboard */,
 				D5571D6026D56A12005833F9 /* ParksJSON.json */,
+				D5A0986926D592D400A590D0 /* parkGeoJson.json */,
 				D55D270426D019A100CF6960 /* Info.plist */,
 			);
 			path = NYCParkLocator;
@@ -240,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5A0986A26D592D400A590D0 /* parkGeoJson.json in Resources */,
 				D55D270326D019A100CF6960 /* LaunchScreen.storyboard in Resources */,
 				D5571D6126D56A12005833F9 /* ParksJSON.json in Resources */,
 				D55D270026D019A100CF6960 /* Assets.xcassets in Resources */,
@@ -269,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5571D6526D582DC005833F9 /* ParkAnnotation.swift in Sources */,
+				D5A0986E26D5A13B00A590D0 /* ParkGeo.swift in Sources */,
 				D55D26F726D019A000CF6960 /* AppDelegate.swift in Sources */,
 				D5571D5F26D56947005833F9 /* Extensions.swift in Sources */,
 				D5778C7F26D0216200AA6AB2 /* MainViewController.swift in Sources */,
