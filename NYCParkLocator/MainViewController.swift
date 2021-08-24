@@ -22,12 +22,40 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     
     let regionRadius: Double = 1500
     
+   var parks = [Park]() {
+        didSet {
+            print("DID SET")
+         
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
         requestLocationPersmissions()
         setupMapView()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        loadParks()
+    }
+    private func loadParks() {
+        Park.loadParksFromJSON { parks, error in
+            if let error = error {
+                self.showAlert(title: "Error loading data", message: error)
+            }
+            
+            if let parks = parks {
+                print("PARKS FOUND: \(parks.count)")
+                print("PARK Address: \(parks.first!.address)")
+                print("Multi: \(parks.first!.multipolygon)")
+                
+                self.parks = parks
+                
+            }
+        }
+    }
+    
+
     
     private func requestLocationPersmissions() {
       locationManager.requestWhenInUseAuthorization()
@@ -72,16 +100,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    public func showAlert(title: String?, message: String?, handler: ((UIAlertAction) -> Void)?) {
-      let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-      let okAction = UIAlertAction(title: "Ok", style: .default, handler: handler)
 
-        alertController.addAction(okAction)
-        alertController.addAction(cancel)
-        
-      present(alertController, animated: true, completion: nil)
-    }
     @IBAction func didPressMyLocation(_ sender: Any) {
         userLocationButtonHandler()
     }
@@ -121,3 +140,5 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         centerMapOnUserLocation(coordinate: userCoordinate)
     }
 }
+
+

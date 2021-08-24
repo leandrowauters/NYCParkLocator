@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5571D5F26D56947005833F9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5571D5E26D56947005833F9 /* Extensions.swift */; };
+		D5571D6126D56A12005833F9 /* ParksJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = D5571D6026D56A12005833F9 /* ParksJSON.json */; };
+		D5571D6326D56A3A005833F9 /* Park.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5571D6226D56A3A005833F9 /* Park.swift */; };
+		D5571D6526D582DC005833F9 /* ParkAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5571D6426D582DC005833F9 /* ParkAnnotation.swift */; };
 		D55D26F726D019A000CF6960 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55D26F626D019A000CF6960 /* AppDelegate.swift */; };
 		D55D26FE26D019A000CF6960 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D55D26FC26D019A000CF6960 /* Main.storyboard */; };
 		D55D270026D019A100CF6960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D55D26FF26D019A100CF6960 /* Assets.xcassets */; };
@@ -34,6 +38,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D5571D5E26D56947005833F9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D5571D6026D56A12005833F9 /* ParksJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ParksJSON.json; sourceTree = "<group>"; };
+		D5571D6226D56A3A005833F9 /* Park.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Park.swift; sourceTree = "<group>"; };
+		D5571D6426D582DC005833F9 /* ParkAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkAnnotation.swift; sourceTree = "<group>"; };
 		D55D26F326D019A000CF6960 /* NYCParkLocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYCParkLocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D55D26F626D019A000CF6960 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D55D26FD26D019A000CF6960 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -98,10 +106,14 @@
 			isa = PBXGroup;
 			children = (
 				D55D26F626D019A000CF6960 /* AppDelegate.swift */,
+				D5571D6226D56A3A005833F9 /* Park.swift */,
+				D5571D6426D582DC005833F9 /* ParkAnnotation.swift */,
 				D5778C7E26D0216200AA6AB2 /* MainViewController.swift */,
+				D5571D5E26D56947005833F9 /* Extensions.swift */,
 				D55D26FC26D019A000CF6960 /* Main.storyboard */,
 				D55D26FF26D019A100CF6960 /* Assets.xcassets */,
 				D55D270126D019A100CF6960 /* LaunchScreen.storyboard */,
+				D5571D6026D56A12005833F9 /* ParksJSON.json */,
 				D55D270426D019A100CF6960 /* Info.plist */,
 			);
 			path = NYCParkLocator;
@@ -229,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D55D270326D019A100CF6960 /* LaunchScreen.storyboard in Resources */,
+				D5571D6126D56A12005833F9 /* ParksJSON.json in Resources */,
 				D55D270026D019A100CF6960 /* Assets.xcassets in Resources */,
 				D55D26FE26D019A000CF6960 /* Main.storyboard in Resources */,
 			);
@@ -255,8 +268,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5571D6526D582DC005833F9 /* ParkAnnotation.swift in Sources */,
 				D55D26F726D019A000CF6960 /* AppDelegate.swift in Sources */,
+				D5571D5F26D56947005833F9 /* Extensions.swift in Sources */,
 				D5778C7F26D0216200AA6AB2 /* MainViewController.swift in Sources */,
+				D5571D6326D56A3A005833F9 /* Park.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
