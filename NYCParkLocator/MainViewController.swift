@@ -31,54 +31,38 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
-        mapView.delegate = self
+        
         requestLocationPersmissions()
         setupMapView()
     }
     
+//    override func viewDidAppear(_ animated: Bool) {
+//        loadParks { parks, error in
+//
+//        }
+//    }
 
-    private func loadParks() {
-        Park.loadParksFromJSON { parks, error in
+    private func loadParks(completion: @escaping([Properties]?, String?) -> Void) {
+        var parks = [Park]()
+        Park.loadParksFromJSON { properties, error in
             if let error = error {
-                self.showAlert(title: "Error loading data", message: error)
+                completion(nil, error)
             }
             
-            if let parks = parks {
-                print("PARKS FOUND: \(parks.count)")
-                print("PARK Address: \(parks.first!.address)")
-                print("Multi: \(parks.first!.multipolygon)")
-                
-                self.parks = parks
-                
+            if let properties = properties {
+                print("properties found: \(properties.count)")
+                var parkProperties = [String]()
+                for property in properties {
+                    parkProperties.append(property.typecatego ?? "N/A")
+                    
+                }
+                print(Set(parkProperties))
             }
         }
     }
     
 
-    func parseGeoJSON() -> [MKOverlay] {
-        guard let url = Bundle.main.url(forResource: "parkGeoJson", withExtension: "json") else {
-            fatalError("Undable to get geojson")
-        }
-        var geoJson = [MKGeoJSONObject]()
-        do {
-            let data = try Data(contentsOf: url)
-            geoJson = try MKGeoJSONDecoder().decode(data)
-        } catch {
-            fatalError("Unable to decode geojson")
-        }
-        var overlays = [MKOverlay]()
-        for item in geoJson {
-            if let feature = item as? MKGeoJSONFeature {
-                for geo in feature.geometry {
-                    if let polygon = geo as? MKMultiPolygon {
-                        overlays.append(polygon)
-                    }
-                }
-            }
-        }
-        print("returning: \(overlays.count) overlays")
-        return overlays
-    }
+
 
     
     private func requestLocationPersmissions() {
@@ -112,9 +96,12 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     private func setupMapView() {
-        
+        mapView.delegate = self
         mapView.showsUserLocation = true
-        mapView.addOverlays(self.parseGeoJSON())
+        let overlays = Park.parseGeoJSON()
+//        mapView.addOverlays(overlays)
+        mapView.addAnnotations(overlays)
+    
     }
     
     private func showAppSettings() {
@@ -176,11 +163,14 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         return renderer
       }
 
-
-
       return MKOverlayRenderer(overlay: overlay)
 
     }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print(view)
+    }
+    
 }
 
 
