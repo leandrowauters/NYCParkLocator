@@ -17,30 +17,6 @@ struct Park: Codable {
     
     static let parksTypesToFilter = ["Nature Area", "Recreation Field/Courts", "Neighborhood Park", "Community Park", "Garden", "Triangle/Plaza", "Playground", "Flagship Park", "Waterfront Facility"]
     
-    static func loadParksFromJSON(completion: @escaping([Properties]?, String?) -> Void)  {
-        Bundle.main.decode(Park.self, from: "parkGeoJson.json") { park, error in
-            
-            var properties = [Properties]()
-            
-            if let error = error {
-                completion(nil, error)
-            }
-            
-            if let park = park {
-                let filtered = park.features.filter { feature in
-                    
-                    return parksTypesToFilter.contains(feature.properties.typecatego ?? "N/A")
-                }
-                
-
-                for feature in filtered {
-                    
-                    properties.append(feature.properties)
-                }
-                completion(properties, nil)
-            }
-        }
-    }
     
     static func parseGeoJSON() -> [MKOverlay] {
         guard let url = Bundle.main.url(forResource: "parkGeoJson", withExtension: "json") else {
@@ -126,51 +102,4 @@ struct Properties: Codable {
         case councildis, borough, waterfront
     }
 }
-//
-//struct Park: Codable {
-//    var name311: String
-//    var location: String
-//    var url: String?
-//    var zipcode: String
-//    var multipolygon: Multipolygon
-//
-//    var address: String {
-//        return location + ", " + zipcode
-//    }
-//
-//
-////    var coordinate: CLLocationCoordinate2D
-////
-////    static func getCoordinateFromAddress(address: String, completion: @escaping(CLLocationCoordinate2D?, Error?) -> Void) {
-////        let geocoder = CLGeocoder()
-////
-////        geocoder.geocodeAddressString(address) { placemarks, error in
-////            if let error = error {
-////                completion(nil, error)
-////            }
-////            if let placemarks = placemarks {
-////                completion(placemarks.first?.location?.coordinate, nil)
-////            }
-////        }
-////    }
-//
-////    private func getCoordinateFromAddress(address: String) -> CLLocationCoordinate2D?{
-////        let geocoder = CLGeocoder()
-////        var coordinate: CLLocationCoordinate2D?
-////        geocoder.geocodeAddressString(address) { placemarks, error in
-////            if let error = error {
-////                coordinate = nil
-////                print(error.localizedDescription)
-////            }
-////            if let placemarks = placemarks {
-////                coordinate = placemarks.first?.location?.coordinate
-////            }
-////        }
-////        return coordinate
-////    }
 
-//
-//struct Multipolygon: Codable {
-//    let type: String
-//    let coordinates: [[[[Double]]]]
-//}

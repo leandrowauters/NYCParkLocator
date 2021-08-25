@@ -31,40 +31,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
-        
         requestLocationPersmissions()
         setupMapView()
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        loadParks { parks, error in
-//
-//        }
-//    }
 
-//    private func loadParks(completion: @escaping([Properties]?, String?) -> Void) {
-//        var parks = [Park]()
-//        Park.loadParksFromJSON { properties, error in
-//            if let error = error {
-//                completion(nil, error)
-//            }
-//
-//            if let properties = properties {
-//                print("properties found: \(properties.count)")
-//                var parkProperties = [String]()
-//                for property in properties {
-//                    parkProperties.append(property.typecatego ?? "N/A")
-//
-//                }
-//                print(Set(parkProperties))
-//            }
-//        }
-//    }
-    
-
-
-
-    
     private func requestLocationPersmissions() {
       locationManager.requestWhenInUseAuthorization()
     }
@@ -99,11 +69,12 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         mapView.delegate = self
         mapView.showsUserLocation = true
         let overlays = Park.parseGeoJSON()
-//        mapView.addOverlays(overlays)
+        mapView.addOverlays(overlays)
         mapView.addAnnotations(overlays)
         // Map Customization:
         mapView.isRotateEnabled = false
         mapView.showsCompass = false
+        
 //        mapView.showsBuildings = false
         mapView.pointOfInterestFilter = .init(including: [.park])
     }
@@ -140,9 +111,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
           locationManager.startUpdatingLocation()
         case .denied, .notDetermined, .restricted:
           print("denied")
-            
-
-            centerMap(coordinate: defultCoordinate)
+          centerMap(coordinate: defultCoordinate)
         default:
           break
         }
@@ -178,7 +147,6 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             return 
         }
         centerMap(coordinate: annotation.coordinate)
-        
     }
     
 }
