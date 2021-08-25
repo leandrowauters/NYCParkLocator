@@ -13,6 +13,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
 
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var filterButton: UIButton!
     
     
     private var locationManager = CLLocationManager()
@@ -21,7 +22,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     let defultCoordinate = CLLocationCoordinate2D(latitude: 40.7484, longitude: -73.9857)
     
     let regionRadius: Double = 1500
-    
+    private var filters = [String]()
     var properties = [Properties]() {
         didSet {
             print("DID SET: \(properties.count)")
@@ -36,8 +37,20 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         locationManager.delegate = self
         requestLocationPersmissions()
         setupMapView()
+        setupFilters()
     }
-
+    
+    
+    private func setupFilters() {
+        filters = UserDefaultsHelper.loadFilterCategories()
+        print("CATEGORIES TO FILTER \(filters)")
+        if !filters.isEmpty {
+            filterButton.addCount(count: filters.count)
+            //MARK: TODO: APPLY FILTERS
+            
+        }
+    }
+    
     private func requestLocationPersmissions() {
       locationManager.requestWhenInUseAuthorization()
     }
@@ -97,10 +110,19 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     @IBAction func filterPressed(_ sender: Any) {
-        
+//        let filterVC = FilterViewController()
+//        filterVC.filterDelegate = self
+//        present(filterVC, animated: true, completion: nil)
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as?  FilterViewController else {
+            return
+        }
+        destination.filterDelegate = self
+        destination.selectedCategories = filters
+    }
+    
     @IBAction func didPressMyLocation(_ sender: Any) {
         userLocationButtonHandler()
     }
@@ -174,4 +196,19 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     
+}
+
+extension MainViewController: FilterDelegate {
+    
+    func didSelectCategories() {
+        filters = UserDefaultsHelper.loadFilterCategories()
+        if filters.isEmpty {
+            filterButton.removeCount()
+        } else {
+            filterButton.addCount(count: filters.count)
+        }
+        for filter in filters {
+            print(filter)
+        }
+    }
 }

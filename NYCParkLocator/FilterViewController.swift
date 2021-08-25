@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FilterDelegate: AnyObject {
-    func didSelectCategories(categories: [String])
+    func didSelectCategories()
 }
 
 class FilterViewController: UIViewController {
@@ -30,32 +30,29 @@ class FilterViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        applyButton.layer.cornerRadius = applyButton.frame.height / 2
-        applyButton.clipsToBounds = true
+        applyButton.roundButton()
+        setupCategoryButtons()
     }
     private func setupButtons() {
-        resetButton.setTitleColor(Constants.categoryButtonSecondaryColor, for: .normal)
-        cancelButton.setTitleColor(Constants.categoryButtonSecondaryColor, for: .normal)
-        applyButton.backgroundColor = Constants.categoryButtonSecondaryColor
-        applyButton.setTitleColor(Constants.categoryButtonPrimaryColor, for: .normal)
-        if selectedCategories.count == 0 {
-            applyButton.isEnabled = false
-            applyButton.alpha = 0.5
-        } else {
-            applyButton.isEnabled = true
-            applyButton.alpha = 1.0
-        }
+        resetButton.addTextColor()
+        cancelButton.addTextColor()
+        applyButton.setupAsApplyButton()
+//        if selectedCategories.count == 0 {
+//            applyButton.disableButton()
+//        } else {
+//            applyButton.enableButton()
+//        }
     }
+    
     private func setupCategoryButtons() {
+        
         for i in 0...Park.parksTypesToFilter.count - 1 {
             let category = Park.parksTypesToFilter[i]
             let button = CategoryButtons[i]
-            button.isHidden = false
-            button.tag = i
-            button.setTitle(category, for: .normal)
-            button.backgroundColor = Constants.categoryButtonPrimaryColor
-            button.setTitleColor(Constants.categoryButtonSecondaryColor, for: .normal)
-
+            button.setAsFilterButton(title: category, tag: i)
+            if selectedCategories.contains(button.currentTitle ?? String()) {
+                button.didSelect()
+            }
         }
     }
     
@@ -64,34 +61,24 @@ class FilterViewController: UIViewController {
 
         if selectedCategories.contains(category) {
             selectedCategories.removeAll(where: {$0 == category})
-            sender.backgroundColor = Constants.categoryButtonPrimaryColor
-            sender.setTitleColor(Constants.categoryButtonSecondaryColor, for: .normal)
-            sender.layer.cornerRadius = sender.frame.height / 2
-            sender.clipsToBounds = true
-            
+            sender.didDeselect()
         } else {
             print(sender.tag)
             print(category)
             selectedCategories.append(category)
             for button in CategoryButtons {
                 if button == sender {
-                    //NOT SELECTED
-                    button.backgroundColor = Constants.categoryButtonSecondaryColor
-                    button.setTitleColor(Constants.categoryButtonPrimaryColor, for: .normal)
-                    button.layer.cornerRadius = button.frame.height / 2
-                    button.clipsToBounds = true
+                    button.didSelect()
                 }
                 
             }
         }
         print("Number of Categories:  \(selectedCategories.count)")
-        if selectedCategories.count == 0 {
-            applyButton.isEnabled = false
-            applyButton.alpha = 0.5
-        } else {
-            applyButton.isEnabled = true
-            applyButton.alpha = 1.0
-        }
+//        if selectedCategories.count == 0 {
+//            applyButton.disableButton()
+//        } else {
+//            applyButton.enableButton()
+//        }
     }
     
     @IBAction func cancelPressed(_ sender: Any) {
@@ -100,9 +87,15 @@ class FilterViewController: UIViewController {
     
     @IBAction func resetPressed(_ sender: Any) {
         selectedCategories.removeAll()
+        setupCategoryButtons()
     }
     @IBAction func didSelectApply(_ sender: Any) {
-        filterDelegate?.didSelectCategories(categories: selectedCategories)
+        
+            UserDefaultsHelper.saveFilterCategories(categories: selectedCategories)
+            print("SAVE CATEGORIE FILTER: \(selectedCategories)")
+        
+        filterDelegate?.didSelectCategories()
+        dismiss(animated: true, completion: nil)
     }
     
 }

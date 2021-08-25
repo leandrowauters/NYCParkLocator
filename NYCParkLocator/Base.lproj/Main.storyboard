@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="82" width="414" height="61.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dyy-Vl-ESM">
-                                                <rect key="frame" x="10" y="10" width="329" height="37"/>
+                                                <rect key="frame" x="10" y="10" width="314.5" height="37"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="trq-F8-med">
                                                         <rect key="frame" x="0.0" y="4.5" width="32" height="28"/>
@@ -41,7 +41,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Map" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iXD-TL-2hr">
-                                                        <rect key="frame" x="37" y="3.5" width="292" height="30"/>
+                                                        <rect key="frame" x="37" y="3.5" width="277.5" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="GDC-3v-EFl"/>
                                                         </constraints>
@@ -49,7 +49,7 @@
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wbO-ft-yCY">
-                                                        <rect key="frame" x="294" y="3.5" width="30" height="30"/>
+                                                        <rect key="frame" x="279.5" y="3.5" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="DRm-PM-ue1"/>
                                                             <constraint firstAttribute="height" constant="30" id="dod-i9-EiZ"/>
@@ -82,9 +82,8 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8B5-7V-TZW">
-                                                <rect key="frame" x="349" y="10" width="55" height="37"/>
+                                                <rect key="frame" x="334.5" y="10" width="69.5" height="37"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="55" id="6cl-d1-8Oh"/>
                                                     <constraint firstAttribute="height" constant="37" id="jUR-bR-Hjc"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
@@ -92,11 +91,12 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="filterPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1cN-Jk-UPA"/>
+                                                    <segue destination="1vO-WZ-7AA" kind="show" id="Lya-gb-X0Y"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="Dyy-Vl-ESM" firstAttribute="width" secondItem="idJ-Ua-awZ" secondAttribute="width" multiplier="0.76" id="M1a-tl-mSm"/>
                                             <constraint firstItem="8B5-7V-TZW" firstAttribute="centerY" secondItem="Dyy-Vl-ESM" secondAttribute="centerY" id="PAo-HP-Jtr"/>
                                             <constraint firstItem="Dyy-Vl-ESM" firstAttribute="top" secondItem="idJ-Ua-awZ" secondAttribute="top" constant="10" id="Ybb-EX-xA9"/>
                                             <constraint firstItem="Dyy-Vl-ESM" firstAttribute="leading" secondItem="idJ-Ua-awZ" secondAttribute="leading" constant="10" id="bgB-Na-AtF"/>
@@ -135,6 +135,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="filterButton" destination="8B5-7V-TZW" id="S4E-kR-Goc"/>
                         <outlet property="mapView" destination="q3C-NV-oIJ" id="M1Y-Pd-Jg7"/>
                     </connections>
                 </viewController>
@@ -147,17 +148,17 @@
             <objects>
                 <viewController id="1vO-WZ-7AA" customClass="FilterViewController" customModule="NYCParkLocator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="abI-Fb-8Z1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Va1-Cc-0uQ">
-                                <rect key="frame" x="180.5" y="59" width="53.5" height="23"/>
+                                <rect key="frame" x="180.5" y="15" width="53.5" height="23"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aFV-Xx-DDr">
-                                <rect key="frame" x="15" y="56.5" width="49" height="30"/>
+                                <rect key="frame" x="15" y="12.5" width="49" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
@@ -165,7 +166,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTT-bL-7LU">
-                                <rect key="frame" x="359" y="55.5" width="40" height="30"/>
+                                <rect key="frame" x="359" y="11.5" width="40" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <state key="normal" title="Reset"/>
                                 <connections>
@@ -173,141 +174,142 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qsr-oh-tA1">
-                                <rect key="frame" x="0.0" y="97" width="414" height="1"/>
+                                <rect key="frame" x="0.0" y="53" width="414" height="1"/>
                                 <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Irg-KC-Chg"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MCN-nB-SBn">
-                                <rect key="frame" x="15" y="113" width="384" height="17"/>
+                                <rect key="frame" x="15" y="69" width="384" height="17"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="xTN-nl-P9F">
-                                <rect key="frame" x="15" y="145" width="186.5" height="0.0"/>
+                                <rect key="frame" x="15" y="101" width="186.5" height="0.0"/>
                                 <subviews>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAC-h8-FOP">
-                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="1"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="hGc-J3-WYS"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vw2-F2-vZG">
-                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="0.0"/>
-                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="13"/>
-                                        <state key="normal" title="ButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
+                                        <state key="normal" title="3"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="iYU-qd-gsB"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRC-0l-TRT">
-                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="5"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="e7d-gr-7zY"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KDv-37-IpP">
-                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="7"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="3Oq-lx-TaF"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XwS-D0-dWo">
-                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButtonButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="9"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="LYl-PF-TcL"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plB-hz-JaY">
-                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButtonButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="11"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="Dc3-yw-yX1"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="XwS-D0-dWo" firstAttribute="width" secondItem="ZAC-h8-FOP" secondAttribute="width" id="AVc-Ki-A4a"/>
-                                    <constraint firstItem="KDv-37-IpP" firstAttribute="width" secondItem="ZAC-h8-FOP" secondAttribute="width" id="VIL-5p-SrD"/>
-                                    <constraint firstItem="Vw2-F2-vZG" firstAttribute="width" secondItem="ZAC-h8-FOP" secondAttribute="width" id="W9R-il-97d"/>
-                                    <constraint firstItem="FRC-0l-TRT" firstAttribute="width" secondItem="Vw2-F2-vZG" secondAttribute="width" id="eAR-BC-OA3"/>
-                                    <constraint firstItem="plB-hz-JaY" firstAttribute="width" secondItem="ZAC-h8-FOP" secondAttribute="width" id="rxL-aV-Hcv"/>
-                                    <constraint firstItem="ZAC-h8-FOP" firstAttribute="width" secondItem="xTN-nl-P9F" secondAttribute="width" multiplier="0.9" id="ymo-F5-cSU"/>
+                                    <constraint firstItem="plB-hz-JaY" firstAttribute="width" secondItem="xTN-nl-P9F" secondAttribute="width" id="Jxi-2r-AZG"/>
+                                    <constraint firstItem="Vw2-F2-vZG" firstAttribute="width" secondItem="xTN-nl-P9F" secondAttribute="width" id="Y8B-X4-yQp"/>
+                                    <constraint firstItem="ZAC-h8-FOP" firstAttribute="width" secondItem="xTN-nl-P9F" secondAttribute="width" id="hT4-QG-N6L"/>
+                                    <constraint firstItem="KDv-37-IpP" firstAttribute="width" secondItem="xTN-nl-P9F" secondAttribute="width" id="kCP-Td-H6h"/>
+                                    <constraint firstItem="XwS-D0-dWo" firstAttribute="width" secondItem="xTN-nl-P9F" secondAttribute="width" id="wOP-Ut-LeH"/>
+                                    <constraint firstItem="FRC-0l-TRT" firstAttribute="width" secondItem="xTN-nl-P9F" secondAttribute="width" id="zfO-b3-2f3"/>
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ojw-uu-STJ">
-                                <rect key="frame" x="212.5" y="145" width="186.5" height="0.0"/>
+                                <rect key="frame" x="212.5" y="101" width="186.5" height="0.0"/>
                                 <subviews>
                                     <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z4H-Md-uAH">
-                                        <rect key="frame" x="0.0" y="0.0" width="168" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="2"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="nt8-x9-lev"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxt-XK-uzt">
-                                        <rect key="frame" x="0.0" y="0.0" width="168" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="4"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="nes-aG-bvL"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blO-qR-3FR">
-                                        <rect key="frame" x="0.0" y="0.0" width="168" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="6"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="dqy-BX-rEl"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkH-PH-hSL">
-                                        <rect key="frame" x="0.0" y="0.0" width="168" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="8"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="i4y-ru-r6q"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kf9-7T-2Pk">
-                                        <rect key="frame" x="0.0" y="0.0" width="168" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButtonButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="10"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="3vr-5c-jY1"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tb1-no-NXr">
-                                        <rect key="frame" x="0.0" y="0.0" width="168" height="0.0"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="ButtonButtonButtonButton"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="186.5" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <state key="normal" title="12"/>
                                         <connections>
                                             <action selector="categoryButtonPressed:" destination="1vO-WZ-7AA" eventType="touchUpInside" id="JUc-19-LZD"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Kf9-7T-2Pk" firstAttribute="width" secondItem="z4H-Md-uAH" secondAttribute="width" id="7J8-In-Lhs"/>
-                                    <constraint firstItem="Tb1-no-NXr" firstAttribute="width" secondItem="z4H-Md-uAH" secondAttribute="width" id="SvT-MP-pEi"/>
-                                    <constraint firstItem="blO-qR-3FR" firstAttribute="width" secondItem="z4H-Md-uAH" secondAttribute="width" id="UuM-4J-mqY"/>
-                                    <constraint firstItem="wkH-PH-hSL" firstAttribute="width" secondItem="z4H-Md-uAH" secondAttribute="width" id="aad-Ar-zhe"/>
-                                    <constraint firstItem="Fxt-XK-uzt" firstAttribute="width" secondItem="z4H-Md-uAH" secondAttribute="width" id="fl3-L0-diL"/>
+                                    <constraint firstItem="Tb1-no-NXr" firstAttribute="width" secondItem="Ojw-uu-STJ" secondAttribute="width" id="COj-cb-swQ"/>
+                                    <constraint firstItem="Fxt-XK-uzt" firstAttribute="width" secondItem="Ojw-uu-STJ" secondAttribute="width" id="FdQ-F7-M1n"/>
+                                    <constraint firstItem="wkH-PH-hSL" firstAttribute="width" secondItem="Ojw-uu-STJ" secondAttribute="width" id="J6b-8s-0j3"/>
+                                    <constraint firstItem="z4H-Md-uAH" firstAttribute="width" secondItem="Ojw-uu-STJ" secondAttribute="width" id="POn-w8-cYv"/>
+                                    <constraint firstItem="blO-qR-3FR" firstAttribute="width" secondItem="Ojw-uu-STJ" secondAttribute="width" id="iuk-qR-0kP"/>
+                                    <constraint firstItem="Kf9-7T-2Pk" firstAttribute="width" secondItem="Ojw-uu-STJ" secondAttribute="width" id="pc9-RM-8NI"/>
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHb-He-KCA">
-                                <rect key="frame" x="83" y="809" width="248" height="33"/>
+                                <rect key="frame" x="83" y="755" width="248" height="33"/>
                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <state key="normal" title="Apply"/>
@@ -328,7 +330,6 @@
                             <constraint firstItem="xTN-nl-P9F" firstAttribute="leading" secondItem="ZhB-iY-J2v" secondAttribute="leading" constant="15" id="Rc4-nw-jNm"/>
                             <constraint firstItem="Qsr-oh-tA1" firstAttribute="leading" secondItem="ZhB-iY-J2v" secondAttribute="leading" id="VAc-fK-7xu"/>
                             <constraint firstItem="MCN-nB-SBn" firstAttribute="leading" secondItem="ZhB-iY-J2v" secondAttribute="leading" constant="15" id="Xqx-UM-Iad"/>
-                            <constraint firstItem="z4H-Md-uAH" firstAttribute="width" secondItem="ZAC-h8-FOP" secondAttribute="width" id="YWr-V3-9zP"/>
                             <constraint firstItem="ZhB-iY-J2v" firstAttribute="bottom" secondItem="dHb-He-KCA" secondAttribute="bottom" constant="20" id="Ydd-SY-dua"/>
                             <constraint firstItem="Va1-Cc-0uQ" firstAttribute="top" secondItem="ZhB-iY-J2v" secondAttribute="top" constant="15" id="ZQe-IP-bMR"/>
                             <constraint firstItem="aFV-Xx-DDr" firstAttribute="firstBaseline" secondItem="Va1-Cc-0uQ" secondAttribute="firstBaseline" id="a8W-dF-Rxu"/>
