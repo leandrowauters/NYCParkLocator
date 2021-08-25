@@ -101,7 +101,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         let overlays = Park.parseGeoJSON()
 //        mapView.addOverlays(overlays)
         mapView.addAnnotations(overlays)
-        
+        // Map Customization:
+        mapView.isRotateEnabled = false
+        mapView.showsCompass = false
+//        mapView.showsBuildings = false
+        mapView.pointOfInterestFilter = .init(including: [.park])
     }
     
     private func showAppSettings() {
@@ -115,6 +119,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
 
     @IBAction func didPressMyLocation(_ sender: Any) {
         userLocationButtonHandler()
+        
     }
     
     func centerMap(coordinate: CLLocationCoordinate2D) {
