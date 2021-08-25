@@ -18,7 +18,7 @@ struct Park: Codable {
     static let parksTypesToFilter = ["Nature Area", "Recreation Field/Courts", "Neighborhood Park", "Community Park", "Garden", "Triangle/Plaza", "Playground", "Flagship Park", "Waterfront Facility"]
     
     
-    static func parseGeoJSON(completion: @escaping([MKOverlay], [Properties]) -> Void)  {
+    static func parseGeoJSON(categoryFilters: [String], completion: @escaping([MKOverlay], [Properties]) -> Void)  {
         guard let url = Bundle.main.url(forResource: "parkGeoJson", withExtension: "json") else {
             fatalError("Undable to get geojson")
         }
@@ -36,13 +36,26 @@ struct Park: Codable {
                 do {
                     
                     let property = try JSONDecoder().decode(Properties.self, from: feature.properties!)
-                    if parksTypesToFilter.contains(property.typecatego ?? "N/A") {
-                        for geo in feature.geometry {
-                            
-                            if let polygon = geo as? MKMultiPolygon {
-                                polygon.title = property.name311
-                                overlays.append(polygon)
-                                properties.append(property)
+                    if categoryFilters.isEmpty {
+                        if parksTypesToFilter.contains(property.typecatego ?? "N/A") {
+                            for geo in feature.geometry {
+                                
+                                if let polygon = geo as? MKMultiPolygon {
+                                    polygon.title = property.name311
+                                    overlays.append(polygon)
+                                    properties.append(property)
+                                }
+                            }
+                        }
+                    } else {
+                        if categoryFilters.contains(property.typecatego ?? "N/A") {
+                            for geo in feature.geometry {
+                                
+                                if let polygon = geo as? MKMultiPolygon {
+                                    polygon.title = property.name311
+                                    overlays.append(polygon)
+                                    properties.append(property)
+                                }
                             }
                         }
                     }
@@ -53,7 +66,7 @@ struct Park: Codable {
 
             }
         }
-        print("returning: \(overlays.count) overlays")
+        print("returning: \(overlays.count) overlays, with \(categoryFilters.count) Filters")
         completion(overlays,properties)
     }
     

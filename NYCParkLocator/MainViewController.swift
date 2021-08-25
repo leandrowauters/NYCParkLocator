@@ -23,21 +23,17 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     let regionRadius: Double = 1500
     private var filters = [String]()
-    var properties = [Properties]() {
-        didSet {
-            print("DID SET: \(properties.count)")
-        }
-    }
-    
+    var properties = [Properties]()
+    var annotations = [MKAnnotation]()
     var selectedOverlay: MKOverlay?
     var selectedLocation: Properties?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
         requestLocationPersmissions()
-        setupMapView()
         setupFilters()
+        setupMapView()
+        
     }
     
     
@@ -46,18 +42,33 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         print("CATEGORIES TO FILTER \(filters)")
         if !filters.isEmpty {
             filterButton.addCount(count: filters.count)
-            //MARK: TODO: APPLY FILTERS
-            
+//            //MARK: TODO: APPLY FILTERS
+//            self.properties = filterProperties(properties: properties, categories: filters)
         }
     }
     
+    private func filterProperties(properties: [Properties], categories: [String]) -> [Properties] {
+        
+        if categories.isEmpty {
+            return properties
+        }
+        var propertiesToReturn = [Properties]()
+        for property in properties {
+            let type = property.typecatego ?? String()
+            if categories.contains(type) {
+                propertiesToReturn.append(property)
+            }
+        }
+        print("Total Properties: \(properties.count), Filtered: \(propertiesToReturn.count)")
+        return propertiesToReturn
+    }
     private func requestLocationPersmissions() {
       locationManager.requestWhenInUseAuthorization()
     }
     
-    func filterPropertiesByCategory(category: String) -> [Properties] {
-        return properties.filter{$0.typecatego == category}
-    }
+//    func filterPropertiesByCategory(category: String) -> [Properties] {
+//        return properties.filter{$0.typecatego == category}
+//    }
     private func userLocationButtonHandler() {
         //TODO: SHOW ALERT WHEN DENIED. SHOW USER LOCATION WHEN APPROVED
         
@@ -87,8 +98,18 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     private func setupMapView() {
         mapView.delegate = self
         mapView.showsUserLocation = true
-        Park.parseGeoJSON { [self] overlays, properties in
+        
+        Park.parseGeoJSON(categoryFilters: filters) { [self] overlays, properties in
+            
+           
+                mapView.removeAnnotations(self.annotations)
+            
+            
+      
             self.properties = properties
+            self.annotations = overlays
+            print("PROPERTIES AFTER LOADED: \(self.properties.count)")
+            print("OVERLAY AFTER LOADING \(self.annotations.count)")
             //        mapView.addOverlays(overlays)
             self.mapView.addAnnotations(overlays)
                     // Map Customization:
@@ -202,6 +223,7 @@ extension MainViewController: FilterDelegate {
     
     func didSelectCategories() {
         filters = UserDefaultsHelper.loadFilterCategories()
+        setupMapView()
         if filters.isEmpty {
             filterButton.removeCount()
         } else {
