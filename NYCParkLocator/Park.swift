@@ -18,7 +18,7 @@ struct Park: Codable {
     static let parksTypesToFilter = ["Nature Area", "Recreation Field/Courts", "Neighborhood Park", "Community Park", "Garden", "Triangle/Plaza", "Playground", "Flagship Park", "Waterfront Facility"]
     
     
-    static func parseGeoJSON() -> [MKOverlay] {
+    static func parseGeoJSON(completion: @escaping([MKOverlay], [Properties]) -> Void)  {
         guard let url = Bundle.main.url(forResource: "parkGeoJson", withExtension: "json") else {
             fatalError("Undable to get geojson")
         }
@@ -30,6 +30,7 @@ struct Park: Codable {
             fatalError("Unable to decode geojson")
         }
         var overlays = [MKOverlay]()
+        var properties = [Properties]()
         for item in geoJson {
             if let feature = item as? MKGeoJSONFeature {
                 do {
@@ -37,9 +38,11 @@ struct Park: Codable {
                     let property = try JSONDecoder().decode(Properties.self, from: feature.properties!)
                     if parksTypesToFilter.contains(property.typecatego ?? "N/A") {
                         for geo in feature.geometry {
+                            
                             if let polygon = geo as? MKMultiPolygon {
                                 polygon.title = property.name311
                                 overlays.append(polygon)
+                                properties.append(property)
                             }
                         }
                     }
@@ -51,8 +54,10 @@ struct Park: Codable {
             }
         }
         print("returning: \(overlays.count) overlays")
-        return overlays
+        completion(overlays,properties)
     }
+    
+
 
 }
 

@@ -22,12 +22,15 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     let regionRadius: Double = 1500
     
-   var parks = [Park]() {
+    var properties = [Properties]() {
         didSet {
-            print("DID SET")
-         
+            print("DID SET: \(properties.count)")
         }
     }
+    
+    var selectedOverlay: MKOverlay?
+    var selectedLocation: Properties?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -39,6 +42,9 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
       locationManager.requestWhenInUseAuthorization()
     }
     
+    func filterPropertiesByCategory(category: String) -> [Properties] {
+        return properties.filter{$0.typecatego == category}
+    }
     private func userLocationButtonHandler() {
         //TODO: SHOW ALERT WHEN DENIED. SHOW USER LOCATION WHEN APPROVED
         
@@ -68,15 +74,18 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     private func setupMapView() {
         mapView.delegate = self
         mapView.showsUserLocation = true
-        let overlays = Park.parseGeoJSON()
-        mapView.addOverlays(overlays)
-        mapView.addAnnotations(overlays)
-        // Map Customization:
-        mapView.isRotateEnabled = false
-        mapView.showsCompass = false
-        
-//        mapView.showsBuildings = false
-        mapView.pointOfInterestFilter = .init(including: [.park])
+        Park.parseGeoJSON { [self] overlays, properties in
+            self.properties = properties
+            //        mapView.addOverlays(overlays)
+            self.mapView.addAnnotations(overlays)
+                    // Map Customization:
+            self.mapView.isRotateEnabled = false
+            self.mapView.showsCompass = false
+                    
+            //        mapView.showsBuildings = false
+            self.mapView.pointOfInterestFilter = .init(including: [.park])
+        }
+
     }
     
     private func showAppSettings() {
@@ -87,10 +96,13 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
+    @IBAction func filterPressed(_ sender: Any) {
+        
+    }
+    
 
     @IBAction func didPressMyLocation(_ sender: Any) {
         userLocationButtonHandler()
-        
     }
     
     func centerMap(coordinate: CLLocationCoordinate2D) {
@@ -143,12 +155,23 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        if let selectedOverlay = selectedOverlay {
+            mapView.removeOverlay(selectedOverlay)
+        }
         guard let annotation = view.annotation else {
             return 
         }
+        let overlay = view.annotation as? MKOverlay
+        let selectedProperties = properties.filter {$0.signname == annotation.title}
+        if let selectedProperties = selectedProperties.first {
+            print(selectedProperties.name311 ?? "N/A")
+            self.selectedLocation = selectedProperties
+        }
+        self.selectedOverlay = overlay
         centerMap(coordinate: annotation.coordinate)
+        mapView.addOverlay(overlay!)
     }
     
+    
 }
-
-

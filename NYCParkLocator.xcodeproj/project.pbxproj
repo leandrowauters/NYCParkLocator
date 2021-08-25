@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D515E1B026D6A92E00CF6163 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D515E1AF26D6A92E00CF6163 /* FilterViewController.swift */; };
+		D515E1B226D6B56600CF6163 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D515E1B126D6B56600CF6163 /* Constants.swift */; };
 		D5571D5F26D56947005833F9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5571D5E26D56947005833F9 /* Extensions.swift */; };
 		D5571D6126D56A12005833F9 /* ParksJSON.json in Resources */ = {isa = PBXBuildFile; fileRef = D5571D6026D56A12005833F9 /* ParksJSON.json */; };
 		D5571D6326D56A3A005833F9 /* Park.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5571D6226D56A3A005833F9 /* Park.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D515E1AF26D6A92E00CF6163 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		D515E1B126D6B56600CF6163 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D5571D5E26D56947005833F9 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D5571D6026D56A12005833F9 /* ParksJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ParksJSON.json; sourceTree = "<group>"; };
 		D5571D6226D56A3A005833F9 /* Park.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Park.swift; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 				D5778C7E26D0216200AA6AB2 /* MainViewController.swift */,
 				D5571D5E26D56947005833F9 /* Extensions.swift */,
 				D55D26FC26D019A000CF6960 /* Main.storyboard */,
+				D515E1AF26D6A92E00CF6163 /* FilterViewController.swift */,
+				D515E1B126D6B56600CF6163 /* Constants.swift */,
 				D55D26FF26D019A100CF6960 /* Assets.xcassets */,
 				D55D270126D019A100CF6960 /* LaunchScreen.storyboard */,
 				D5571D6026D56A12005833F9 /* ParksJSON.json */,
@@ -275,12 +281,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D515E1B026D6A92E00CF6163 /* FilterViewController.swift in Sources */,
 				D5571D6526D582DC005833F9 /* ParkAnnotation.swift in Sources */,
 				D5A0986E26D5A13B00A590D0 /* ParkGeo.swift in Sources */,
 				D55D26F726D019A000CF6960 /* AppDelegate.swift in Sources */,
 				D5571D5F26D56947005833F9 /* Extensions.swift in Sources */,
 				D5778C7F26D0216200AA6AB2 /* MainViewController.swift in Sources */,
 				D5571D6326D56A3A005833F9 /* Park.swift in Sources */,
+				D515E1B226D6B56600CF6163 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
