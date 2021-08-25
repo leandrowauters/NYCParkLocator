@@ -62,6 +62,7 @@ struct Park: Codable {
                     if parksTypesToFilter.contains(property.typecatego ?? "N/A") {
                         for geo in feature.geometry {
                             if let polygon = geo as? MKMultiPolygon {
+                                polygon.title = property.name311
                                 overlays.append(polygon)
                             }
                         }

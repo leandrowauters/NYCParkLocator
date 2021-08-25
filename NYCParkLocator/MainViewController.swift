@@ -42,24 +42,24 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
 //        }
 //    }
 
-    private func loadParks(completion: @escaping([Properties]?, String?) -> Void) {
-        var parks = [Park]()
-        Park.loadParksFromJSON { properties, error in
-            if let error = error {
-                completion(nil, error)
-            }
-            
-            if let properties = properties {
-                print("properties found: \(properties.count)")
-                var parkProperties = [String]()
-                for property in properties {
-                    parkProperties.append(property.typecatego ?? "N/A")
-                    
-                }
-                print(Set(parkProperties))
-            }
-        }
-    }
+//    private func loadParks(completion: @escaping([Properties]?, String?) -> Void) {
+//        var parks = [Park]()
+//        Park.loadParksFromJSON { properties, error in
+//            if let error = error {
+//                completion(nil, error)
+//            }
+//
+//            if let properties = properties {
+//                print("properties found: \(properties.count)")
+//                var parkProperties = [String]()
+//                for property in properties {
+//                    parkProperties.append(property.typecatego ?? "N/A")
+//
+//                }
+//                print(Set(parkProperties))
+//            }
+//        }
+//    }
     
 
 
@@ -79,13 +79,13 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             guard let userCoordinate = self.userCoordinate else {
                 return
             }
-          centerMapOnUserLocation(coordinate: userCoordinate)
+          centerMap(coordinate: userCoordinate)
         case .authorizedWhenInUse:
           print("authorizedWhenInUse")
             guard let userCoordinate = self.userCoordinate else {
                 return
             }
-          centerMapOnUserLocation(coordinate: userCoordinate)
+          centerMap(coordinate: userCoordinate)
         case .denied, .notDetermined, .restricted:
           print("denied")
             showAlert(title: "User Location Status: Denied", message: "Open Settings?") { alertAction in
@@ -101,7 +101,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         let overlays = Park.parseGeoJSON()
 //        mapView.addOverlays(overlays)
         mapView.addAnnotations(overlays)
-    
+        
     }
     
     private func showAppSettings() {
@@ -117,9 +117,10 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         userLocationButtonHandler()
     }
     
-    func centerMapOnUserLocation(coordinate: CLLocationCoordinate2D) {
+    func centerMap(coordinate: CLLocationCoordinate2D) {
         let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
+        //MARK: THIS SHOULD BE CHECK!
         locationManager.stopUpdatingLocation()
     }
     
@@ -136,7 +137,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
           print("denied")
             
 
-            centerMapOnUserLocation(coordinate: defultCoordinate)
+            centerMap(coordinate: defultCoordinate)
         default:
           break
         }
@@ -149,7 +150,7 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             print("NO USER COORDINATE FOUNT")
             return
         }
-        centerMapOnUserLocation(coordinate: userCoordinate)
+        centerMap(coordinate: userCoordinate)
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -168,7 +169,11 @@ class MainViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print(view)
+        guard let annotation = view.annotation else {
+            return 
+        }
+        centerMap(coordinate: annotation.coordinate)
+        
     }
     
 }
